@@ -1,5 +1,7 @@
 package com.example.lib_man_sys.controller;
 
+import com.example.lib_man_sys.dto.RequestDTO.StudentRequest;
+import com.example.lib_man_sys.dto.ResponseDTO.StudentResponse;
 import com.example.lib_man_sys.service.StudentService;
 import com.example.lib_man_sys.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,13 @@ public class StudentController {
     @Autowired
     StudentService studentService;
     @PostMapping("/add")
-    public ResponseEntity addStudetn(@RequestBody Student student){
-        String response = studentService.addStudent(student);
+    public ResponseEntity addStudetn(@RequestBody StudentRequest studentRequest){
+        StudentResponse response = studentService.addStudent(studentRequest);
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
     @GetMapping("/get")
     public ResponseEntity getStudent(@RequestParam("id") int regNo){
-        Student student = studentService.getStudent(regNo);
+        StudentResponse student = studentService.getStudent(regNo);
         if(student != null){
             return new ResponseEntity(student, HttpStatus.FOUND);
         }
@@ -42,7 +44,7 @@ public class StudentController {
     }
     @GetMapping("/get_all")
     public ResponseEntity getAllStudents(){
-        List<Student> studentList = studentService.getAllStudents();
+        List<String> studentList = studentService.getAllStudents();
         if(studentList.size() > 0){
             return new ResponseEntity(studentList, HttpStatus.FOUND);
         }

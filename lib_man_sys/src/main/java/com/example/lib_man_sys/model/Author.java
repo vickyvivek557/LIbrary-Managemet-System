@@ -1,10 +1,13 @@
 package com.example.lib_man_sys.model;
 
-import com.example.lib_man_sys.Enum.Gender;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
@@ -12,13 +15,11 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Entity
-@Table(name = "student_info")
-public class Student {
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int regNo;
+    int id;
 
-    @Column(name = "student_name")
     String name;
 
     int age;
@@ -26,9 +27,9 @@ public class Student {
     @Column(unique = true, nullable = false)
     String email;
 
-    @Enumerated(EnumType.STRING)
-    Gender gender;
+    @UpdateTimestamp
+    Date lastActive;
 
-    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
-    LibraryCard libraryCard;
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    List<Book> books = new ArrayList<>();
 }

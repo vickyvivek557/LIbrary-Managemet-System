@@ -1,5 +1,6 @@
 package com.example.lib_man_sys.repository;
 
+import com.example.lib_man_sys.Enum.Gender;
 import com.example.lib_man_sys.model.Student;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +15,12 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
     @Query(value = "select * from student where gender = 'MALE'", nativeQuery = true)
-    List<Student> getMaleStudents();
+    List<Student> findByGender();
+
+//    List<Student> findByGender(Gender gender);
+//
+//    Student findByGendrAndEmail(Gender gender, String email);
+
     @Modifying
     @Transactional
     @Query(value = "update student set age = :newAge where reg_no = :regNo", nativeQuery = true)
