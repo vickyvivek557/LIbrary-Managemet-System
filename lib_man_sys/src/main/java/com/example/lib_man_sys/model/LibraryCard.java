@@ -17,12 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 @Setter
 @Getter
+@Builder
 public class LibraryCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String cardNo;
+    String cardNo; //UUID
 
     @Enumerated(EnumType.STRING)
     CardStatus cardStatus;

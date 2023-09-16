@@ -36,23 +36,23 @@ public class StudentController {
     }
     @PutMapping("/update_age")
     public ResponseEntity updateAge(@RequestParam("id") int regNo, @RequestParam("age") int newAge){
-        Student student = studentService.updateAge(regNo, newAge);
-        if(student != null){
-            return new ResponseEntity(student, HttpStatus.ACCEPTED);
+        StudentResponse studentResponse = studentService.updateAge(regNo, newAge);
+        if(studentResponse != null){
+            return new ResponseEntity(studentResponse, HttpStatus.ACCEPTED);
         }
         return new ResponseEntity("Invalid regNo !!!", HttpStatus.BAD_REQUEST);
     }
     @GetMapping("/get_all")
     public ResponseEntity getAllStudents(){
-        List<String> studentList = studentService.getAllStudents();
-        if(studentList.size() > 0){
-            return new ResponseEntity(studentList, HttpStatus.FOUND);
+        List<StudentResponse> studentResponseList = studentService.getAllStudents();
+        if(studentResponseList.size() > 0){
+            return new ResponseEntity(studentResponseList, HttpStatus.FOUND);
         }
         return new ResponseEntity("NO any student present in Database.", HttpStatus.NO_CONTENT);
     }
     @GetMapping("/get_all_male")
     public ResponseEntity getMaleStudents(){
-        List<Student> maleStudentsList = studentService.getMaleStudents();
+        List<StudentResponse> maleStudentsList = studentService.getMaleStudents();
         if(maleStudentsList.size() > 0){
             return new ResponseEntity(maleStudentsList, HttpStatus.FOUND);
         }

@@ -14,11 +14,11 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Integer> {
 
-    @Query(value = "select * from student where gender = 'MALE'", nativeQuery = true)
-    List<Student> findByGender();
-
+//    @Query(value = "select * from student where gender = 'MALE'")
 //    List<Student> findByGender(Gender gender);
-//
+
+    List<Student> findByGender(Gender gender);
+
 //    Student findByGendrAndEmail(Gender gender, String email);
 
     @Modifying
