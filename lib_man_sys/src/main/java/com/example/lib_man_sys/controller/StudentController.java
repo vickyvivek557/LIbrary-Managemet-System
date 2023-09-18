@@ -2,8 +2,7 @@ package com.example.lib_man_sys.controller;
 
 import com.example.lib_man_sys.dto.RequestDTO.StudentRequest;
 import com.example.lib_man_sys.dto.ResponseDTO.StudentResponse;
-import com.example.lib_man_sys.service.StudentService;
-import com.example.lib_man_sys.model.Student;
+import com.example.lib_man_sys.service.impl.StudentServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +14,15 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
-    StudentService studentService;
+    StudentServiceImpl studentServiceImpl;
     @PostMapping("/add")
     public ResponseEntity addStudetn(@RequestBody StudentRequest studentRequest){
-        StudentResponse response = studentService.addStudent(studentRequest);
+        StudentResponse response = studentServiceImpl.addStudent(studentRequest);
         return new ResponseEntity(response, HttpStatus.CREATED);
     }
     @GetMapping("/get")
     public ResponseEntity getStudent(@RequestParam("id") int regNo){
-        StudentResponse student = studentService.getStudent(regNo);
+        StudentResponse student = studentServiceImpl.getStudent(regNo);
         if(student != null){
             return new ResponseEntity(student, HttpStatus.FOUND);
         }
@@ -31,12 +30,12 @@ public class StudentController {
     }
     @DeleteMapping("/delete/{id}")
     public String deleteStudent(@PathVariable("id") int regNO){
-        studentService.deleteStudent(regNO);
+        studentServiceImpl.deleteStudent(regNO);
         return "Studetnt deleated successfully!!";
     }
     @PutMapping("/update_age")
     public ResponseEntity updateAge(@RequestParam("id") int regNo, @RequestParam("age") int newAge){
-        StudentResponse studentResponse = studentService.updateAge(regNo, newAge);
+        StudentResponse studentResponse = studentServiceImpl.updateAge(regNo, newAge);
         if(studentResponse != null){
             return new ResponseEntity(studentResponse, HttpStatus.ACCEPTED);
         }
@@ -44,7 +43,7 @@ public class StudentController {
     }
     @GetMapping("/get_all")
     public ResponseEntity getAllStudents(){
-        List<StudentResponse> studentResponseList = studentService.getAllStudents();
+        List<StudentResponse> studentResponseList = studentServiceImpl.getAllStudents();
         if(studentResponseList.size() > 0){
             return new ResponseEntity(studentResponseList, HttpStatus.FOUND);
         }
@@ -52,7 +51,7 @@ public class StudentController {
     }
     @GetMapping("/get_all_male")
     public ResponseEntity getMaleStudents(){
-        List<StudentResponse> maleStudentsList = studentService.getMaleStudents();
+        List<StudentResponse> maleStudentsList = studentServiceImpl.getMaleStudents();
         if(maleStudentsList.size() > 0){
             return new ResponseEntity(maleStudentsList, HttpStatus.FOUND);
         }
